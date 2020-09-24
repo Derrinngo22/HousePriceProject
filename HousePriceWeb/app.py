@@ -8,6 +8,7 @@ app = Flask('house_pricer')
 
 @app.route('/')
 def show_predict_house_form():
+    
     return render_template('predictorform.html') # look in templates folder
 
 
@@ -32,3 +33,4 @@ def get_model():
     return pickle.load(open("other_files/model", 'rb'))
 
 app.run("localhost", "9999", debug=True)
+print("Here")
