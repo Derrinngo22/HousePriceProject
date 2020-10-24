@@ -7,6 +7,9 @@ import numpy as np
 import pandas as pd
 
 app = Flask(__name__)
+def get_model():
+    return pickle.load(open("models/XGBmodel", 'rb'))
+model = get_model()
 
 @app.route('/')
 def show_predict_house_form():
@@ -16,7 +19,7 @@ def show_predict_house_form():
 def predict():
     form = request.form
     # load model
-    model = get_model()
+    
     oq = float(form['OQ'])
     grl = np.log(float(request.form['GRL']))
     gc = float(request.form['GC'])
@@ -30,8 +33,7 @@ def predict():
     return render_template('result.html', gc=gc,   predicted_price=np.expm1(prediction))
     
 
-def get_model():
-    return pickle.load(open("models/XGBmodel", 'rb'))
+
 
 
 if __name__ == '__main__':
